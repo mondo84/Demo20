@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit {
         if ( res.auth ) {
           localStorage.setItem('userToken', res.token); // Guarda token en el local storage.
           this.objRouter.navigate(['home']);            // Navegacion al home de la app.
+
         } else {
           console.log(`msg: ${res.msg}`);
         }
