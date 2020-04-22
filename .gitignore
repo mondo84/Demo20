@@ -1,4 +1,5 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
+# Lista de archivos que no se subiran al repositorio remoto de github.
 
 # compiled output
 /dist
