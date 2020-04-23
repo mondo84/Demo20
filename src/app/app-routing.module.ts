@@ -5,6 +5,9 @@ import { NoFoundComponent } from './no-found/no-found.component';
 // Ruatas de la app.
 const routes: Routes = [
   {
+    path: '', redirectTo: 'login', pathMatch: 'full'
+  },
+  {
     path: 'login',
     loadChildren: async () => {
         const moduloLogin = await import('./login/login.module');
