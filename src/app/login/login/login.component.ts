@@ -52,16 +52,15 @@ export class LoginComponent implements OnInit {
     this.objLgService.validUser(this.loginForm.value)
     .subscribe({
       next: (res: UsuarioI) => {
-        // console.log(res); // Debug.
+        // console.log(res);                            // Debug.
         if ( res.auth ) {
           localStorage.setItem('userToken', res.token); // Guarda token en el local storage.
           this.objRouter.navigate(['home']);            // Navegacion al home de la app.
-
         } else {
           console.log(`msg: ${res.msg}`);
         }
       },
-      error: (err) =>  console.log(err.error),
+      error: (err) => console.log(err.error),
       complete: () => console.log('Completado')
     });
   }
