@@ -48,7 +48,7 @@ export class InterceptorHttpService implements HttpInterceptor {
 
     // Retorna un observable con una respuesta al usuario.
     return throwError(
-      error.status // Devuelve el estado de la peticion.
+      error
     );
   }
 }
