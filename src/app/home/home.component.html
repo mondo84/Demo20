@@ -6,38 +6,17 @@
 
     <label class="logo">Logo X</label>
     <ul>
-      <li><a class="active" href="#">Home</a></li>
-      <li><a href="#">News</a></li>
-      <li><a href="#">Contact</a></li>
-      <li><a href="#">Clientes</a></li>
-      <li><a href="#">About</a></li>
+      <li><a [routerLink]="['/app/graficos']" routerLinkActive="activo" >Graficos</a></li>
+      <li><a [routerLink]="['/app/casos']" routerLinkActive="activo" >Casos</a></li>
+      <li><a >Contact</a></li>
+      <li><a >Clientes</a></li>
+      <li><a >About</a></li>
+      <li><a (click)="logout()">Salir</a></li>
     </ul>
   </nav>
 
   <main>
-    <div class="card">
-      <div class="header-card">
-        <img class="barras" src="./../../assets/img/grafico-das-maiores-populacoes.jpg" alt="">
-      </div>
-      <div class="body-card">
-        <p>
-          Lorem ipsum dolor sit amet consectetur
-          alias ad facere magnam unde libero at quos!
-        </p>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="header-card">
-        <img class="barras" src="./../../assets/img/torta.png" alt="">
-      </div>
-      <div class="body-card">
-        <p>
-          Lorem ipsum dolor sit amet consectetur
-          alias ad facere magnam unde libero at quos!
-        </p>
-      </div>
-    </div>
+    <router-outlet></router-outlet>
   </main>
 
 </div>

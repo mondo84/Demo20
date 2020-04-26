@@ -5,6 +5,9 @@ import { LoginServicioService } from '../login-servicio.service';
 import { UsuarioI } from 'src/app/interfaces/usuario-i';
 import { Router } from '@angular/router';
 
+// Variables de entorno.
+import { LS_TOKEN } from 'src/environments/environment';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -54,13 +57,13 @@ export class LoginComponent implements OnInit {
       next: (res: UsuarioI) => {
         // console.log(res);                            // Debug.
         if ( res.auth ) {
-          localStorage.setItem('userToken', res.token); // Guarda token en el local storage.
-          this.objRouter.navigate(['home']);            // Navegacion al home de la app.
+          localStorage.setItem(LS_TOKEN, res.token); // Guarda token en el local storage.
+          this.objRouter.navigate(['app']);            // Navegacion al home de la app.
         } else {
           console.log(`msg: ${res.msg}`);
         }
       },
-      error: (err) => console.log(err.error),
+      error: (err) => console.log(err.message),
       complete: () => console.log('Completado')
     });
   }

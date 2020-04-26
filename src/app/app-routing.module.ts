@@ -15,7 +15,7 @@ const routes: Routes = [
       }
   },
   {
-    path: 'home',
+    path: 'app',
     loadChildren: async () => {
       const moduloHome = await import('./home/home.module');
       return moduloHome.HomeModule;
