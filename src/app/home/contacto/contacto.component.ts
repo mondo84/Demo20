@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ContactService } from './contact.service';
+import { Component, OnInit, Injector } from '@angular/core';
 
 @Component({
   selector: 'app-contacto',
@@ -7,9 +8,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactoComponent implements OnInit {
 
-  constructor() { }
+  private obj: ContactService;
 
-  ngOnInit() {
+  constructor(private argSerContact: Injector) {
   }
 
+  ngOnInit() {
+    this.obj = this.argSerContact.get(ContactService);
+    this.obj.listen('test event')
+    .subscribe( (res) => {
+      console.log(res);
+    });
+
+    this.lista();
+    this.muestraTyping();
+  }
+
+  isWritter() { // Envia los datos en tiempo real.
+    this.obj.emit('typing', { datos: 'escribiendo' } );
+  }
+
+  muestraTyping() { // Muestra los datos en tiempo real.
+    this.obj.on('typing');
+  }
+
+  enviar() {
+    // this.obj.emit('send', 'datos envidos');
+    const objJson = { nombre: 'Yesid', msg: 'Mensaje enviado.' };
+    this.obj.emit('datos', objJson );
+  }
+
+  lista() {
+    this.obj.on('datos');
+  }
 }
