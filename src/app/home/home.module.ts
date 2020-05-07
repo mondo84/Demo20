@@ -6,6 +6,7 @@ import { HomeComponent } from './home.component';
 import { EstadisticasComponent } from './estadisticas/estadisticas.component';
 import { CasosComponent } from './casos/casos.component';
 import { ContactoComponent } from './contacto/contacto.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ContactoComponent } from './contacto/contacto.component';
     ContactoComponent],
   imports: [
     CommonModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class HomeModule { }

@@ -1,1 +1,71 @@
-<p>casos works!</p>
+<div class="main-container">
+
+  <div class="header-container" >
+    <h3>Listado de casos</h3>
+  </div>
+  {{toogle}}
+  <div class="nav-bar-casos">
+    <div class="btn-nav">
+      <button (click)="toogle = !toogle"  > + </button>
+    </div>
+    <div *ngIf="nuevo > 0"  >{{nuevo}}</div>
+  </div>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>ID caso</th>
+          <th>Estado</th>
+          <th>Creacion</th>
+          <th>Resp.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of datos index as i;"
+          [ngClass]="{'par': i % 2 == 0, 'impar': !(i % 2 == 0) }" >
+          <th>{{ item.id }}</th>
+          <td>{{ item.estado }}</td>
+          <td>{{ item.creacion }}</td>
+          <td>{{ item.resp }}</td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+
+  <div class="footer">
+    <div class="redes">F</div>
+    <div class="redes">T</div>
+    <div class="redes">Y</div>
+  </div>
+</div>
+
+<!-- Ventana Modal -->
+<div class="modal" [ngClass]="{'t': toogle}">
+  <div class="card-modal">
+    <div class="header-card">
+      <div class="title-header">Encabezado Modal</div>
+      <div class="btn-close">
+        <button (click)="toogle = !toogle">X</button>
+      </div>
+    </div>
+    <div class="body-card">
+
+      <form novalidate [formGroup]="objFb" (ngSubmit)="guardar()">
+        <div class="group-form">
+          <input type="text" name="resp"
+            formControlName="resp"
+                  id="resp" placeholder="Nombre">
+          <label for="resp">Responsable:</label>
+        </div>
+
+        <div class="btn-modal">
+          {{this.getError()}}
+          <button type="submit" [disabled]="!objFb.valid" >Save</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

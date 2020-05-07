@@ -1,23 +1,28 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-// interface
+// interfaces
 import { UsuarioI } from 'src/app/interfaces/usuario-i';
+import { CasoI } from 'src/app/interfaces/caso-i';
 
 // rxjs
 import { Observable } from 'rxjs';
 
 // socket io-client
-// import * as io from 'socket.io-client';
+import * as io from 'socket.io-client';
 
 @Injectable({ providedIn: 'root' })
 export class CasosServicioService {
 
-  // socket: any;
-  // readonly url: string = 'ws://localhost:3000';
+  socket: any;
+  readonly url: string = 'ws://localhost:3000';
 
   constructor(private objHttp: HttpClient) {
-    // this.socket = io(this.url); // Instancia del socket.
+  }
+
+  setupSocketConnection() {
+    this.socket = io(this.url); // Instancia del socket.
+    // Se envia evento de info al servidor.
   }
 
   getUsuarios(): Observable<UsuarioI> {
@@ -26,5 +31,37 @@ export class CasosServicioService {
     return obj$;
   }
 
+  reqCasos(argForm: CasoI) {
+    this.socket.emit('tabla', JSON.stringify(argForm));
+  }
 
+  getAllCasos(): Observable<any> {
+
+    return new Observable ( (observer$) => {
+      this.socket.on('tabla', (r) => {
+        observer$.next( JSON.parse(r));
+        observer$.error({error: 'Algo anda mal'});
+        observer$.complete();
+      });
+    });
+  }
+
+  getCasos() {
+    const datos: any = [
+      { id: 1, estado: 'Abierto', creacion: '02', resp: 'Yesid' },
+      { id: 2, estado: 'Cerrado', creacion: '03', resp: 'Enrique' },
+      { id: 3, estado: 'Abierto', creacion: '04', resp: 'Davila' },
+      { id: 4, estado: 'Abierto', creacion: '02', resp: 'Yesid' },
+      { id: 5, estado: 'Cerrado', creacion: '03', resp: 'Enrique' },
+      { id: 6, estado: 'Abierto', creacion: '04', resp: 'Davila' },
+      { id: 7, estado: 'Abierto', creacion: '02', resp: 'Yesid' },
+      { id: 8, estado: 'Cerrado', creacion: '03', resp: 'Enrique' },
+      { id: 10, estado: 'Abierto', creacion: '04', resp: 'Davila' }
+    ];
+    return new Observable ( (observer) => {
+      observer.next(datos);
+      observer.error({msg: 'Algo anda mal'});
+      observer.complete();
+    });
+  }
 }

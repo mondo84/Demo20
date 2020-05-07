@@ -1,7 +1,129 @@
 *{
   color: black;
   box-sizing: border-box;
-  /* list-style: none; */
-  /* margin: 0; */
-  /* padding: 0; */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 10px;
+  justify-items: center;
+  align-items: center;
+  padding: 5px;
+}
+
+.container-contacto,
+.container-chat {
+  width: 100%;
+  padding: 5px;
+  border: 1px rgb(168, 168, 168) solid;
+  border-radius: 2px;
+}
+
+input[type = "text"],
+textarea,
+input[type = "submit"] {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+textarea {
+  border: 1px rgb(182, 182, 182) solid;
+  resize: none;
+}
+
+input[type = "text"] {
+  outline: none;
+  border: none;
+  border-bottom: 1px rgb(138, 199, 255) solid;
+  background-color: white;
+  border-radius: 0;
+  height: 35px;
+}
+
+.ventana-chat {
+  width: 100%;
+  height: 200px;
+  border: 1px rgb(182, 182, 182) solid;
+  overflow-y: auto; font-size: 12px;
+  margin-bottom: 5px;
+  border-radius: 2px;
+}
+
+.component-form {
+  width: 100%;
+}
+
+.component-form .btnSend {
+  width: 100%;
+  height: 30px;
+  cursor: pointer;
+}
+
+.redes-sociales {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px rgb(177, 176, 176) solid;
+  border-radius: 2px;
+}
+
+.icono-redes {
+  padding: 10px 4px;
+}
+
+.numeros-contacto {
+  width: 100%;
+  border: 1px rgb(177, 176, 176) solid;
+  border-radius: 2px;
+}
+
+.icono-numeros {
+  padding: 10px 4px;
+}
+
+.container-table {
+  width: 100%;
+  height: 200px;
+  overflow: auto;
+  margin-top: 10px;
+  /* background-color: khaki; */
+}
+
+.wrap-card-chat-yo,
+.wrap-card-chat-other {
+  width: 100%;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+/*
+.wrap-card-chat-yo {
+  justify-content: flex-end;
+}
+
+.wrap-card-chat-other {
+  justify-content: flex-start;
+} */
+
+.move-end { justify-content: flex-end; }
+
+.card-chat-yo,
+.card-chat-other {
+  max-width: 70%;
+  height: auto;
+  font-size: 12px;
+  border: 1px rgb(185, 185, 185) solid;
+  padding: 4px;
+  border-radius: 2px;
+}
+
+.card-chat-yo p,
+.card-chat-other p {
+  text-align: justify;
 }

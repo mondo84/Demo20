@@ -1,36 +1,50 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 
 import * as io from 'socket.io-client';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class ContactService {
 
-  socket: any;
-  readonly urlWs: string = 'ws://localhost:3000';
+  private socket: any;
+  readonly urlWs: string = 'ws://localhost:3000/'; // Url API socket.error
+  // readonly urlWs: string = 'ws://echo.websocket.org';
 
   constructor() {
-    this.socket = io(this.urlWs); // Conexion al servidor.
+    this.socket = io.connect(this.urlWs);
   }
 
+  conexion() {
+    this.socket.on('info', (data: any) => {
+      console.log(data);  // Muestra datos del evento 'info', emitido desde el server.
+      // this.socket.on('msj', (x: any) => console.log(JSON.parse(x)));
+    });
+  }
+
+  enviaMensaje(argMsj: any) {
+    this.socket.emit('msj', JSON.stringify(argMsj));
+  }
+
+  enviaMensaje2(argMsj: any) {
+    console.log(argMsj);
+    // this.socket.emit('msj', JSON.stringify(argMsj));
+  }
+
+  getSocket() {
+    return this.socket;
+  }
+
+/*
+  // Inicia el socket del cliente.
   listen(eventName: string): Observable<any> {
-    return new Observable((res) => {
-      this.socket.on(eventName, (data) => {
-        res.next(data);
-        res.error( err => console.error(err.error) );
-        res.complete();
+    return new Observable((observer) => {
+      this.socket.on(eventName, (data: any) => {
+        observer.next(data);
+        observer.error({msj: 'Problema al obtener los datos'});
+        observer.complete();
       });
     });
   }
-
-  emit(eventName: string, data: any) {
-    // this.socket.on(eventName, data);
-    this.socket.emit(eventName, JSON.stringify(data));
-  }
-
-  on(eventName: string) {
-    this.socket.on(eventName, (argSocket) => {
-      console.log( JSON.parse(argSocket));
-    });
-  }
+  */
 }

@@ -1,12 +1,80 @@
-<p>contacto works!</p>
 
-<ul>
-  <li>Sala de chat</li>
-  <li>Formulario de envio</li>
-  <li>Redes sociales</li>
-  <li>Numeros de contacto</li>
-</ul>
+<!-- {{ datosChat | json }} -->
+<div class="main-container">
 
-<input type="text" name="" id="" (keypress)="isWritter()" >
+  <div class="container-contacto" >
+    Formulario de envio
+    <!-- Formulario de contacto -->
+    <form [formGroup]="objContactoForm" (ngSubmit)="onSubmit2()" novalidate>
+      <div class="component-form">
+        <input type="text" formControlName="nombre"
+        name="nombre" id="nombre1" placeholder=" Nombre" required>
+      </div>
+      <div class="component-form">
+        <textarea name="mensaje" id="mensaje"
+        formControlName="mensaje" placeholder=" mensaje"
+        cols="30" rows="10" ></textarea>
+      </div>
+      <div class="component-form">
+        <button class="btnSend" [disabled]="!objContactoForm.valid">Enviar</button>
+      </div>
+    </form>
+  </div>
 
-<button (click)="enviar()" >Enviar datos por socket</button>
+  <div class="container-chat">
+    <h2>Chat</h2>
+    <!--
+    <div id="chat" class="ventana-chat">
+    </div>   Ventana de chat (debe ser una tabla) -->
+
+    <div class="container-table">
+      <div class="wrap-card-chat-yo" *ngFor="let item of datosChat"
+        [ngClass]="{'move-end': item.nombre === 'yo'}" >
+        <div class="card-chat-yo">
+          <p>
+            <strong>{{ item.nombre }}:</strong> {{ item.mensaje }}
+          </p>
+        </div>
+      </div>
+
+      <!--
+      <div class="wrap-card-chat-other">
+        <div class="card-chat-other">
+          <p>
+            Lorem ipsum, dolor?
+          </p>
+        </div>
+      </div> -->
+    </div>
+
+    <div class="container-form-chat">
+      <!-- Formulario de chat -->
+      <form [formGroup]="objChatForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="component-form">
+          <input type="text" formControlName="nombre"
+                name="nombre" id="nombre2" placeholder=" Nombre" required>
+        </div>
+        <div class="component-form">
+          <input type="text" formControlName="mensaje" placeholder=" Mensaje"
+                name="mensaje" id="campoTexto2" required>
+        </div>
+
+        <div class="component-form">
+          <button class="btnSend" [disabled]="!objChatForm.valid">Send</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="redes-sociales">
+    <div class="icono-redes">Icono-Youtube</div>
+    <div class="icono-redes">Icono-Twitter</div>
+    <div class="icono-redes">Icono-Facebook</div>
+  </div>
+
+  <div class="numeros-contacto" >
+    <div class="icono-numeros">Whatsapp</div>
+    <div class="icono-numeros">Celular</div>
+    <div class="icono-numeros">Fijo</div>
+  </div>
+</div>

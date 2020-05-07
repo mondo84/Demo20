@@ -60,7 +60,7 @@ nav ul li a {
   height: 100%;
 }
 
-nav ul li:hover {  background-color: #1b9bff; transition: .9s ease; }
+nav ul li:hover {  background-color: #1b9bff; }
 .activo {  background-color: #1b9bff; }
 .no-activo { background-color: #1bffe1; }
 
@@ -99,4 +99,6 @@ main {
   nav ul li a {
     font-size: 18px;
   }
+
+  nav ul li:hover {  background-color: #1b9bff; transition: 0.9 linear; }
 }
