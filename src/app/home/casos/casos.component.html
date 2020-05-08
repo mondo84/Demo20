@@ -8,7 +8,7 @@
     <div class="btn-nav">
       <button (click)="toogle = !toogle"  > + </button>
     </div>
-    <div *ngIf="nuevo > 0"  >{{nuevo}}</div>
+    <div *ngIf="nuevo > 0">{{nuevo}}</div>
   </div>
 
   <div class="table-container">
@@ -23,7 +23,8 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of datos index as i;"
-          [ngClass]="{'par': i % 2 == 0, 'impar': !(i % 2 == 0) }" >
+          [ngClass]="{'par': i % 2 == 0, 'impar': !(i % 2 == 0) }"
+          (click) = "getRow(item)" >
           <th>{{ item.id }}</th>
           <td>{{ item.estado }}</td>
           <td>{{ item.creacion }}</td>
@@ -66,6 +67,56 @@
         </div>
       </form>
 
+    </div>
+  </div>
+</div>
+
+<!-- Ventana modal Selecciona registro -->
+<div class="modal" [ngClass]="{'t': toogle2}">
+  <div class="card-modal">
+    <div class="header-card">
+      <div class="title-header"> <h3>Registro Seleccionado</h3> </div>
+      <div class="btn-close">
+        <button (click)="toogle2 = !toogle2">x</button>
+      </div>
+    </div>
+    <div class="body-card">
+
+      <form novalidate [formGroup]="objFbSelReg" (ngSubmit)="guardarCambios()">
+        <div class="group-form">
+          <input type="text" name="id" id="id"
+            formControlName="id" required>
+          <label for="resp">ID Caso: <span>{{ numeroDeCaso }}</span> </label>
+        </div>
+        <div class="group-form">
+          <label for="resp">Creacion: <span>{{ fechaCreacion }}</span> </label>
+        </div>
+        <div class="group-form">
+          <input type="text" name="nombre" id="nombre"
+            formControlName="nombre"
+            (click)="focusInput = true"
+            (blur)="validaBlur()" >
+          <label for="nombre"
+          [ngClass]="{'subeLbl': focusInput === true,
+                      'bajaLbl': focusInput === false}">
+          Responsable:</label>
+        </div>
+
+        <div class="group-form">
+          <label for="check-edit" >{{txtBtn}}</label>
+          <input type="checkbox" formControlName="check"
+                  name="check" id="check-edit"
+                  [checked]="false" (change)="habilitaCampo()" >
+        </div>
+
+        <div class="btn-modal">
+          <button>Borrar</button>
+          <button type="submit" [disabled]="!objFbSelReg.valid" > Guardar </button>
+          <!-- {{this.getError()}} -->
+          <!-- <button type="submit" [disabled]="!objFb.valid" >Save</button> -->
+        </div>
+      </form>
+      <!-- {{ objFbSelReg.valid }} -->
     </div>
   </div>
 </div>

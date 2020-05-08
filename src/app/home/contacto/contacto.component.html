@@ -3,7 +3,7 @@
 <div class="main-container">
 
   <div class="container-contacto" >
-    Formulario de envio
+    <h3>Formulario de envio</h3>
     <!-- Formulario de contacto -->
     <form [formGroup]="objContactoForm" (ngSubmit)="onSubmit2()" novalidate>
       <div class="component-form">
@@ -22,7 +22,7 @@
   </div>
 
   <div class="container-chat">
-    <h2>Chat</h2>
+    <h3>Chat</h3>
     <!--
     <div id="chat" class="ventana-chat">
     </div>   Ventana de chat (debe ser una tabla) -->
@@ -36,15 +36,6 @@
           </p>
         </div>
       </div>
-
-      <!--
-      <div class="wrap-card-chat-other">
-        <div class="card-chat-other">
-          <p>
-            Lorem ipsum, dolor?
-          </p>
-        </div>
-      </div> -->
     </div>
 
     <div class="container-form-chat">
@@ -58,7 +49,6 @@
           <input type="text" formControlName="mensaje" placeholder=" Mensaje"
                 name="mensaje" id="campoTexto2" required>
         </div>
-
         <div class="component-form">
           <button class="btnSend" [disabled]="!objChatForm.valid">Send</button>
         </div>

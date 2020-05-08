@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { HttpClient } from '@angular/common/http';
+
 import * as io from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -11,7 +13,7 @@ export class ContactService {
   readonly urlWs: string = 'ws://localhost:3000/'; // Url API socket.error
   // readonly urlWs: string = 'ws://echo.websocket.org';
 
-  constructor() {
+  constructor(private objHttp: HttpClient ) {
     this.socket = io.connect(this.urlWs);
   }
 
@@ -28,6 +30,12 @@ export class ContactService {
 
   enviaMensaje2(argMsj: any) {
     console.log(argMsj);
+    this.objHttp.post('http://localhost:3000/contacto', argMsj)
+    .subscribe({
+      next: (r) => console.log( r ),
+      error: (err) => console.log(err.message),
+      complete: () => { console.log('Completado'); }
+    });
     // this.socket.emit('msj', JSON.stringify(argMsj));
   }
 

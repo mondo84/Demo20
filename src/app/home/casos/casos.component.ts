@@ -11,7 +11,18 @@ export class CasosComponent implements OnInit {
 
   datos: any;
   toogle = false;
+  toogle2 = false;
+  focusInput = false;
+  disabledEdit = false;
+  txtBtn = 'Editar';
+
+  numeroDeCaso: number;
+  fechaCreacion: string;
+
+  // Formuarios reactivos.
   objFb: FormGroup;
+  objFbSelReg: FormGroup;
+
   nuevo = 0;
 
   // Inyeccion de servicio opcion 2.
@@ -24,6 +35,7 @@ export class CasosComponent implements OnInit {
     this.objCasosServ.setupSocketConnection();
     this.getCasos();
     this.formGuardar();
+    this.formSeleccionarReg();
   }
 
   getCasos() {
@@ -36,6 +48,13 @@ export class CasosComponent implements OnInit {
   guardar() {
     console.log(this.objFb.value);
     this.objCasosServ.reqCasos(this.objFb.value);
+  }
+
+  guardarCambios() {
+    // console.log(this.objFbSelReg.value); // Envia datos no incluye campos deshabilitados.
+    // Envia datos incluyendo campos deshabilitados.
+    console.log(this.objFbSelReg.getRawValue());
+    // this.objCasosServ.reqCasos(this.objFbSelReg.value);
   }
 
   formGuardar() {
@@ -51,6 +70,26 @@ export class CasosComponent implements OnInit {
                   ]
                 }
       ]
+    });
+  }
+
+  formSeleccionarReg() {
+    this.objFbSelReg = this.fb.group({
+      id: ['',
+              {
+                validators: [
+                  Validators.required,
+                  Validators.minLength(1)
+                ]
+              }
+          ],
+      nombre: [{ value: '', disabled: true }, {
+              validators: [
+                Validators.required,
+                Validators.minLength(2)
+              ]
+      }],
+      check: [{ value: false, disabled: false }]
     });
   }
 
@@ -73,5 +112,44 @@ export class CasosComponent implements OnInit {
     }
 
     return error;
+  }
+
+  getRow(arg: any) {
+    this.toogle2 = true;  // Muestra el modal.
+    // alert( JSON.stringify(arg) );
+    // console.log(arg);
+
+    // Se obtienen los controles del formulario.
+    const id = this.objFbSelReg.get('id');
+    const nombre = this.objFbSelReg.get('nombre');
+
+    this.numeroDeCaso = arg.id;         // Se setea la etiqueta con el ID.
+    id.patchValue(arg.id);              // Se setea el campo id.
+    nombre.patchValue(arg.resp);        // Se setea el campo nombre.
+    this.fechaCreacion = arg.creacion;  // Se setea la etiqueta fecha de creacion.
+    this.validaBlur();  // Metodo que valida el campo cuando esta en blur.
+  }
+
+  // Valida el campo cuando esta en blur
+  validaBlur() {
+    const campoNombre = this.objFbSelReg.get('nombre');
+
+    if ( campoNombre.value.length <= 0 ) {
+      this.focusInput = false;  // console.log('Baja');
+    } else {
+      this.focusInput = true; // console.log('No baja');
+    }
+  }
+
+  habilitaCampo() {
+    const campoCheck = this.objFbSelReg.get('check');
+    const campoNombre = this.objFbSelReg.get('nombre');
+
+    if ( campoCheck.value ) {
+      // if (campoNombre.disabled) { }
+        campoNombre.enable();
+    } else {
+        campoNombre.disable();
+    }
   }
 }
