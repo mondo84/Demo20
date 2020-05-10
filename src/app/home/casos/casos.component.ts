@@ -9,11 +9,11 @@ import { Component, OnInit, Injector,  } from '@angular/core';
 })
 export class CasosComponent implements OnInit {
 
-  datos: any;
-  toogle = false;
-  toogle2 = false;
-  focusInput = false;
-  disabledEdit = false;
+  datos: any;         // Datos tabla.
+  toogle = false;     // Modal 1
+  toogle2 = false;    // Modal 2
+  focusInput = false; // Toggle manejador de clase en label.
+  // disabledEdit = false;
   txtBtn = 'Editar';
 
   numeroDeCaso: number;
@@ -32,14 +32,15 @@ export class CasosComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.objCasosServ.setupSocketConnection();
+    this.objCasosServ.setupSocketConnection();  // Inicia socket.
     this.getCasos();
     this.formGuardar();
     this.formSeleccionarReg();
   }
 
   getCasos() {
-    this.objCasosServ.socket.on('tabla', (r) => {
+    this.objCasosServ.socket.on('tabla', (r: any) => {
+      console.log(JSON.parse(r).length);
       this.datos = JSON.parse(r);
       this.nuevo = JSON.parse(r).length;
     });
@@ -54,12 +55,12 @@ export class CasosComponent implements OnInit {
     // console.log(this.objFbSelReg.value); // Envia datos no incluye campos deshabilitados.
     // Envia datos incluyendo campos deshabilitados.
     console.log(this.objFbSelReg.getRawValue());
-    // this.objCasosServ.reqCasos(this.objFbSelReg.value);
+    this.objCasosServ.reqCasos(this.objFbSelReg.getRawValue());
   }
 
   formGuardar() {
     this.objFb = this.fb.group({
-      id: [''],
+      id: ['12'],
       estado: ['Activo'],
       creacion: ['hoy'],
       resp: ['', {
@@ -83,7 +84,9 @@ export class CasosComponent implements OnInit {
                 ]
               }
           ],
-      nombre: [{ value: '', disabled: true }, {
+      estado: ['Activo'],
+      creacion: ['hoy'],
+      resp: [{ value: '', disabled: true }, {
               validators: [
                 Validators.required,
                 Validators.minLength(2)
@@ -121,29 +124,41 @@ export class CasosComponent implements OnInit {
 
     // Se obtienen los controles del formulario.
     const id = this.objFbSelReg.get('id');
-    const nombre = this.objFbSelReg.get('nombre');
+    const campoForm = this.objFbSelReg.get('resp');
 
     this.numeroDeCaso = arg.id;         // Se setea la etiqueta con el ID.
     id.patchValue(arg.id);              // Se setea el campo id.
-    nombre.patchValue(arg.resp);        // Se setea el campo nombre.
+    campoForm.patchValue(arg.resp);        // Se setea el campo nombre.
     this.fechaCreacion = arg.creacion;  // Se setea la etiqueta fecha de creacion.
-    this.validaBlur();  // Metodo que valida el campo cuando esta en blur.
+    this.validaBlur(2);  // Metodo que valida el campo cuando esta en blur.
   }
 
   // Valida el campo cuando esta en blur
-  validaBlur() {
-    const campoNombre = this.objFbSelReg.get('nombre');
-
-    if ( campoNombre.value.length <= 0 ) {
-      this.focusInput = false;  // console.log('Baja');
-    } else {
-      this.focusInput = true; // console.log('No baja');
+  validaBlur(numForm: number) {
+    // console.log(`Formulario ${numForm}`);
+    switch (numForm) {
+      case 1:
+        const inputFormNewReg = this.objFb.get('resp');  // Formulario registro.
+        if ( inputFormNewReg.value.length <= 0 ) {
+          this.focusInput = false;  // console.log('Baja');
+        } else {
+          this.focusInput = true;   // console.log('No baja');
+        }
+        break;
+      case 2:
+        const inputFormSelReg = this.objFbSelReg.get('resp');  // Formulario editar.
+        if ( inputFormSelReg.value.length <= 0 ) {
+          this.focusInput = false;  // console.log('Baja');
+        } else {
+          this.focusInput = true;   // console.log('No baja');
+        }
+        break;
     }
   }
 
   habilitaCampo() {
     const campoCheck = this.objFbSelReg.get('check');
-    const campoNombre = this.objFbSelReg.get('nombre');
+    const campoNombre = this.objFbSelReg.get('resp');
 
     if ( campoCheck.value ) {
       // if (campoNombre.disabled) { }
@@ -151,5 +166,19 @@ export class CasosComponent implements OnInit {
     } else {
         campoNombre.disable();
     }
+  }
+
+  abreModal() {
+    this.toogle = !this.toogle;
+    this.validaBlur(1);
+  }
+
+  cierraModal() {
+    console.log('Limpia los campos');
+    this.toogle = !this.toogle;
+
+    this.objFb.reset({
+      resp: {value: '', disabled: false}
+    });
   }
 }

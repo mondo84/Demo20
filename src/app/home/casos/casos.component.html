@@ -3,14 +3,15 @@
   <div class="header-container" >
     <h3>Listado de casos</h3>
   </div>
-  {{toogle}}
+  <!-- {{toogle}} -->
   <div class="nav-bar-casos">
     <div class="btn-nav">
-      <button (click)="toogle = !toogle"  > + </button>
+      <button (click)="abreModal()"  > + </button>
     </div>
     <div *ngIf="nuevo > 0">{{nuevo}}</div>
   </div>
 
+  <!-- Datos: {{ datos | json }} -->
   <div class="table-container">
     <table>
       <thead>
@@ -30,10 +31,12 @@
           <td>{{ item.creacion }}</td>
           <td>{{ item.resp }}</td>
         </tr>
-      </tbody>
+        <!-- <ng-template #name>No hay datos</ng-template> -->
 
+      </tbody>
     </table>
   </div>
+  <div class="no-data" *ngIf="!datos"> No hay datos </div>
 
   <div class="footer">
     <div class="redes">F</div>
@@ -48,22 +51,29 @@
     <div class="header-card">
       <div class="title-header">Encabezado Modal</div>
       <div class="btn-close">
-        <button (click)="toogle = !toogle">X</button>
+        <button (click)="cierraModal()">x</button>
       </div>
     </div>
     <div class="body-card">
 
       <form novalidate [formGroup]="objFb" (ngSubmit)="guardar()">
         <div class="group-form">
-          <input type="text" name="resp"
+          <input class="input-new-caso" type="text" name="resp"
             formControlName="resp"
-                  id="resp" placeholder="Nombre">
-          <label for="resp">Responsable:</label>
+            (click)="focusInput = true"
+            (blur)="validaBlur(1)"
+            id="resp-new">
+          <label for="resp-new"
+            [ngClass]="{'subeLbl': focusInput === true,
+                        'bajaLbl': focusInput === false}">
+            Responsable:</label>
         </div>
-
+        <!-- {{ objFb.get('resp').value }} -->
         <div class="btn-modal">
           {{this.getError()}}
-          <button type="submit" [disabled]="!objFb.valid" >Save</button>
+          <button type="submit" [disabled]="!objFb.valid"
+           [ngClass]="{'disabled-btn': !objFb.valid,
+                        'enabled-btn': objFb.valid}" >Save</button>
         </div>
       </form>
 
@@ -84,7 +94,7 @@
 
       <form novalidate [formGroup]="objFbSelReg" (ngSubmit)="guardarCambios()">
         <div class="group-form">
-          <input type="text" name="id" id="id"
+          <input type="hidden" name="id" id="id"
             formControlName="id" required>
           <label for="resp">ID Caso: <span>{{ numeroDeCaso }}</span> </label>
         </div>
@@ -92,10 +102,10 @@
           <label for="resp">Creacion: <span>{{ fechaCreacion }}</span> </label>
         </div>
         <div class="group-form">
-          <input type="text" name="nombre" id="nombre"
-            formControlName="nombre"
+          <input class="input-sel-reg" type="text" name="resp" id="nombre"
+            formControlName="resp"
             (click)="focusInput = true"
-            (blur)="validaBlur()" >
+            (blur)="validaBlur(2)" >
           <label for="nombre"
           [ngClass]="{'subeLbl': focusInput === true,
                       'bajaLbl': focusInput === false}">
@@ -103,15 +113,19 @@
         </div>
 
         <div class="group-form">
-          <label for="check-edit" >{{txtBtn}}</label>
+          <!-- <label for="check-edit" >EDITAR</label> -->
+          <span>{{ txtBtn }}</span>
           <input type="checkbox" formControlName="check"
-                  name="check" id="check-edit"
-                  [checked]="false" (change)="habilitaCampo()" >
+            name="check" id="check-edit"
+            [checked]="false" (change)="habilitaCampo()" >
         </div>
 
+        <!-- {{ objFbSelReg.valid }} -->
         <div class="btn-modal">
-          <button>Borrar</button>
-          <button type="submit" [disabled]="!objFbSelReg.valid" > Guardar </button>
+          <button class="btn-borrar">Borrar</button>
+          <button type="submit" [disabled]="!objFbSelReg.valid"
+            [ngClass]="{'disabled-btn': !objFbSelReg.valid,
+                        'enabled-btn': objFbSelReg.valid}"> Guardar </button>
           <!-- {{this.getError()}} -->
           <!-- <button type="submit" [disabled]="!objFb.valid" >Save</button> -->
         </div>
@@ -120,3 +134,4 @@
     </div>
   </div>
 </div>
+

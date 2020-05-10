@@ -1,6 +1,8 @@
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ContactService } from './contact.service';
-import { Component, OnInit, Injector, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+
+import { PATTERN_EMAIL } from 'src/environments/environment'; // Variables de entorno.
 
 @Component({
   selector: 'app-contacto',
@@ -9,12 +11,10 @@ import { Component, OnInit, Injector, OnDestroy } from '@angular/core';
 })
 export class ContactoComponent implements OnInit, OnDestroy {
 
-  objChatForm: FormGroup;
-  objContactoForm: FormGroup;
-  obSocket: any;
-  datosChat: any;
-  // tslint:disable-next-line: max-line-length
-  private emailPattern: any = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  objChatForm: FormGroup;     // Formulario 1.
+  objContactoForm: FormGroup; // Formulario 2.
+  obSocket: any;              // Socket.
+  datosChat: any;             // Datos del chat.
 
   constructor(private argSerContact: ContactService,
               private fb: FormBuilder) {
@@ -66,7 +66,7 @@ export class ContactoComponent implements OnInit, OnDestroy {
                     Validators.required,
                     Validators.minLength(2),
                     Validators.maxLength(100),
-                    Validators.pattern(this.emailPattern)
+                    Validators.pattern(PATTERN_EMAIL)
                   ]
       }]
     });

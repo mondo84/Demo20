@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 
 // socket io-client
 import * as io from 'socket.io-client';
+import { URL_API_GET_USER } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class CasosServicioService {
@@ -26,8 +27,8 @@ export class CasosServicioService {
   }
 
   getUsuarios(): Observable<UsuarioI> {
-    const URL_API = 'http://localhost:3000/usuario';
-    const obj$ = this.objHttp.get<UsuarioI>(URL_API);
+
+    const obj$ = this.objHttp.get<UsuarioI>(URL_API_GET_USER);
     return obj$;
   }
 
@@ -38,7 +39,7 @@ export class CasosServicioService {
   getAllCasos(): Observable<any> {
 
     return new Observable ( (observer$) => {
-      this.socket.on('tabla', (r) => {
+      this.socket.on('tabla', (r: any) => {
         observer$.next( JSON.parse(r));
         observer$.error({error: 'Algo anda mal'});
         observer$.complete();

@@ -44,18 +44,14 @@
   padding: 5px 0;
 }
 
-table {
-  font-size: 12px; width: 100%;
-}
-table thead {
-  text-align: center;
-}
-
+table { font-size: 12px; width: 100%; }
+table thead { text-align: center; }
+table tbody tr { cursor: pointer; }
+table tbody tr:hover { background: rgba(0, 0, 0, 0.110); }
 table tbody tr th,
 table tbody tr td { color: rgb(70, 70, 70); padding: 3px; }
 table tbody tr th { text-align: right; }
 table tbody tr td { text-align: center; }
-
 .par { background-color: rgba(243, 125, 233, 0.404); }
 .impar { background-color: rgb(188, 205, 252); }
 
@@ -80,7 +76,16 @@ table tbody tr td { text-align: center; }
   border-bottom: 1px rgb(90, 175, 255) solid;
 }
 
-/***********************/
+.no-data {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+}
+
+/*********** MODAL ************/
 
 .modal {
   position: fixed;
@@ -125,15 +130,9 @@ table tbody tr td { text-align: center; }
   color: white;
 }
 
-.title-header h3 {
-  font-size: 15px;
-  color: #cce4ff;
-}
+.title-header h3 { font-size: 15px; color: #cce4ff; }
 
-.btn-close {
-  width: 30px;
-  padding-right: 5px;
-}
+.btn-close { width: 30px; padding-right: 5px; }
 
 .btn-close button {
   border: none;
@@ -152,25 +151,14 @@ table tbody tr td { text-align: center; }
 .group-form {
   width: 100%;
   margin-bottom: 25px;
-}
-
-.group-form input[type='text'] { width: 100%; }
-
-.group-form span { color: #cce4ff; }
-
-.group-form:nth-child(3) {
   position: relative;
   height: 20px;
   font-size: 12px;
 }
+.group-form span { color: #cce4ff; }
 
-.group-form:nth-child(3) label {
-  position: absolute;
-  left: 5px;
-  transition: transform .3s linear;
-}
-
-.group-form:nth-child(3) input {
+.group-form input[type="text"] {
+  width: 100%;
   outline: none;
   border: none;
   border-radius: 0;
@@ -179,23 +167,24 @@ table tbody tr td { text-align: center; }
   padding-left: 5px;
   color: #cce4ff;
 }
-.subeLbl {
-  transform: translateY(-16px);
-  font-size: 10px;
+
+.group-form label {
+  position: absolute;
+  left: 5px;
+  transition: transform .3s linear;
 }
 
-.bajaLbl {
-  transform: translateY(0);
-  font-size: 12px;
-}
+.subeLbl { transform: translateY(-16px); font-size: 10px; }
+.bajaLbl { transform: translateY(0); font-size: 12px; }
 
 .group-form:nth-child(4) {
+  position: static;
   display: flex;
   align-items: center;
   height: 22px;
 }
 
-.group-form:nth-child(4) label { margin-right: 5px; }
+.group-form:nth-child(4) span { margin-right: 5px; color: rgb(228, 241, 241); }
 
 .btn-modal {
   display: flex;
@@ -203,8 +192,7 @@ table tbody tr td { text-align: center; }
   margin-top: 20px;
 }
 
-.btn-modal button:first-child,
-.btn-modal button:last-child {
+.btn-modal button {
   border: none;
   cursor: pointer;
   width: 70px;
@@ -212,15 +200,21 @@ table tbody tr td { text-align: center; }
   color: white;
 }
 
-.btn-modal button:first-child {
+.btn-modal .btn-borrar {
   outline-color: rgba(250, 98, 98, 0.884);
   background-color: rgba(248, 34, 34, 0.884);
   margin-right: 5px;
 }
 
-.btn-modal button:last-child {
-  outline-color: rgb(177, 165, 3);
-  background-color: rgb(212, 198, 0);
+.enabled-btn {
+  outline-color: rgba(0, 200, 77, 0.600);
+  background-color: rgb(0, 200, 77, 0.450);
   margin-left: 5px;
+  /* color: rgb(255, 10, 222); */
 }
 
+.disabled-btn {
+  background: rgba(218, 218, 218, 0.205);
+  margin-left: 5px;
+  color: #515152;
+}

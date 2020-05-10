@@ -69,22 +69,34 @@ input[type = "text"] {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px rgb(177, 176, 176) solid;
+  border: 1px rgb(90, 175, 255) solid;
   border-radius: 2px;
+  background-color: rgb(162, 210, 255);
 }
 
 .icono-redes {
-  padding: 10px 4px;
+  font-size: 12px;
+  padding: 10px 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .numeros-contacto {
   width: 100%;
-  border: 1px rgb(177, 176, 176) solid;
+  border: 1px rgb(90, 175, 255) solid;
   border-radius: 2px;
+  background-color: rgb(162, 210, 255);
 }
 
 .icono-numeros {
+  font-size: 12px;
   padding: 10px 4px;
+}
+
+.numeros-contacto .icono-numeros:first-child,
+.numeros-contacto .icono-numeros:nth-child(2) {
+  border-bottom: 1px rgb(90, 175, 255) solid;
 }
 
 .container-table {
@@ -92,7 +104,6 @@ input[type = "text"] {
   height: 200px;
   overflow: auto;
   margin-top: 10px;
-  /* background-color: khaki; */
 }
 
 .wrap-card-chat-yo,
@@ -101,15 +112,6 @@ input[type = "text"] {
   display: flex;
   margin-bottom: 10px;
 }
-
-/*
-.wrap-card-chat-yo {
-  justify-content: flex-end;
-}
-
-.wrap-card-chat-other {
-  justify-content: flex-start;
-} */
 
 .move-end { justify-content: flex-end; }
 
