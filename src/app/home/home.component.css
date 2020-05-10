@@ -18,6 +18,7 @@ nav {
   position: sticky;         /* posicion pegajosa / respeta el espacio del nav. Fixed no. */
   position: -webkit-sticky; /* para zafari */
   top: 0;                   /* Se pega cuando este en top 0 */
+  z-index: 100;
 }
 
 #check, .checkbtn { display: none; }

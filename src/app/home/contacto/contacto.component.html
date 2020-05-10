@@ -2,25 +2,34 @@
 <!-- {{ datosChat | json }} -->
 <div class="main-container">
 
-  <div class="container-contacto" >
+  <div class="container-contacto" > <!-- Formulario de contacto -->
     <h3>Formulario de envio</h3>
-    <!-- Formulario de contacto -->
     <form [formGroup]="objContactoForm" (ngSubmit)="onSubmit2()" novalidate>
       <div class="component-form">
         <input type="text" formControlName="nombre"
-        name="nombre" id="nombre1" placeholder=" Nombre" required>
+                name="nombre" id="nombre1"
+                (click)="validaClick(1)"
+                (blur)="validaBlur(1)" required>
+        <label for="nombre1"
+            [ngClass]="{'subeLbl': focusInput === true,
+                        'bajaLbl': focusInput === false}">Nombre</label>
       </div>
+      <!--
       <div class="component-form">
         <textarea name="mensaje" id="mensaje"
         formControlName="mensaje" placeholder=" mensaje"
         cols="30" rows="10" ></textarea>
-      </div>
+      </div>  -->
       <div class="component-form">
-        <button class="btnSend" [disabled]="!objContactoForm.valid">Enviar</button>
+        <button class="btnSend" [disabled]="!objContactoForm.valid">
+          <span *ngIf="objContactoForm.valid">{{ txtBtnChatD }}</span>
+          <span *ngIf="!objContactoForm.valid">{{ txtBtnChatB }}</span>
+        </button>
       </div>
     </form>
   </div>
 
+  <!-- Chat de contacto -->
   <div class="container-chat">
     <h3>Chat</h3>
     <!--
@@ -43,14 +52,27 @@
       <form [formGroup]="objChatForm" (ngSubmit)="onSubmit()" novalidate>
         <div class="component-form">
           <input type="text" formControlName="nombre"
-                name="nombre" id="nombre2" placeholder=" Nombre" required>
+                name="nombre" id="nombre2"
+                (click)="validaClick(2)"
+                (blur)="validaBlur(2)" required>
+          <label for="nombre2"
+            [ngClass]="{'subeLbl': focusInput2 === true,
+                        'bajaLbl': focusInput2 === false}">Nombre</label>
         </div>
         <div class="component-form">
-          <input type="text" formControlName="mensaje" placeholder=" Mensaje"
-                name="mensaje" id="campoTexto2" required>
+          <input type="text" formControlName="mensaje"
+                name="mensaje" id="campoTexto2"
+                (click)="validaClick(3)"
+                (blur)="validaBlur(3)" required>
+          <label for="nombre2"
+            [ngClass]="{'subeLbl': focusInput3 === true,
+                        'bajaLbl': focusInput3 === false}">Mensaje</label>
         </div>
         <div class="component-form">
-          <button class="btnSend" [disabled]="!objChatForm.valid">Send</button>
+          <button class="btnSend" [disabled]="!objChatForm.valid">
+          <span *ngIf="objChatForm.valid">{{ txtBtnChatD }}</span>
+          <span *ngIf="!objChatForm.valid">{{ txtBtnChatB }}</span>
+          </button>
         </div>
       </form>
     </div>

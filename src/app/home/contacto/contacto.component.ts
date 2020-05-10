@@ -16,6 +16,13 @@ export class ContactoComponent implements OnInit, OnDestroy {
   obSocket: any;              // Socket.
   datosChat: any;             // Datos del chat.
 
+  focusInput = false;
+  focusInput2 = false;
+  focusInput3 = false;
+
+  txtBtnChatD = 'Enviar';
+  txtBtnChatB = 'Bloqueado';
+
   constructor(private argSerContact: ContactService,
               private fb: FormBuilder) {
     this.chatForm();
@@ -89,5 +96,50 @@ export class ContactoComponent implements OnInit, OnDestroy {
   onSubmit2() {
     this.argSerContact.enviaMensaje2(this.objContactoForm.value);
     this.objContactoForm.get('mensaje').patchValue('');
+  }
+
+  // Toggle de los labels.
+  validaClick(numForm: number) {
+    switch (numForm) {
+      case 1:
+        this.focusInput = true;
+        break;
+      case 2:
+        this.focusInput2 = true;
+        break;
+      case 3:
+        this.focusInput3 = true;
+        break;
+    }
+  }
+
+  validaBlur(numForm: number) {
+    // console.log(`Formulario ${numForm}`);
+    switch (numForm) {
+      case 1:
+        const inputFormNewReg = this.objContactoForm.get('nombre');  // Formulario registro.
+        if ( inputFormNewReg.value.length <= 0 ) {
+          this.focusInput = false;  // console.log('Baja');
+        } else {
+          this.focusInput = true;   // console.log('No baja');
+        }
+        break;
+      case 2:
+        const inputNombreFormSelReg = this.objChatForm.get('nombre');  // Formulario editar.
+        if ( inputNombreFormSelReg.value.length <= 0 ) {
+          this.focusInput2 = false;  // console.log('Baja');
+        } else {
+          this.focusInput2 = true;   // console.log('No baja');
+        }
+        break;
+      case 3:
+        const inputMensajeFormSelReg = this.objChatForm.get('mensaje'); // Formulario editar.
+        if ( inputMensajeFormSelReg.value.length <= 0 ) {
+          this.focusInput3 = false;  // console.log('Baja');
+        } else {
+          this.focusInput3 = true;   // console.log('No baja');
+        }
+        break;
+    }
   }
 }
