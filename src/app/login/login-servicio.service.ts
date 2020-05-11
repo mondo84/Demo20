@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 // Interface de usuario.
-import { UsuarioI } from '../interfaces/usuario-i';
+import { UsuarioI } from '@interfaces/usuario-i';
 
 // Libreria Rxjs
 import { Observable } from 'rxjs';
 
 // Variables de entorno.
-import { LS_TOKEN, URL_API_SIGIN, URL_API_GET_USER } from 'src/environments/environment';
+import { LS_TOKEN, URL_API_SIGIN, URL_API_GET_USER } from '@environments/environment';
 
 @Injectable({ providedIn: 'root' }) // Auto proveer en el app.module
 export class LoginServicioService {

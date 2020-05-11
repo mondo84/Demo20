@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginServicioService } from '../login-servicio.service';
-import { UsuarioI } from 'src/app/interfaces/usuario-i';
+import { LoginServicioService } from '@login/login-servicio.service';
+import { UsuarioI } from '@interfaces/usuario-i';
 import { Router } from '@angular/router';
 
 // Variables de entorno.
-import { LS_TOKEN } from 'src/environments/environment';
+import { LS_TOKEN, PATTERN_EMAIL } from '@environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +16,6 @@ import { LS_TOKEN } from 'src/environments/environment';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  // tslint:disable-next-line: max-line-length
-  private emailPattern: any = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   constructor(private objFb: FormBuilder,
               private objLgService: LoginServicioService,
@@ -36,7 +34,7 @@ export class LoginComponent implements OnInit {
                       Validators.required,
                       Validators.minLength(10),
                       Validators.maxLength(30),
-                      Validators.pattern(this.emailPattern)
+                      Validators.pattern(PATTERN_EMAIL)
                     ]
                   }
               ],

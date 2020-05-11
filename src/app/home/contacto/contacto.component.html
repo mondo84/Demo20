@@ -14,16 +14,20 @@
             [ngClass]="{'subeLbl': focusInput === true,
                         'bajaLbl': focusInput === false}">Nombre</label>
       </div>
-      <!--
+
       <div class="component-form">
         <textarea name="mensaje" id="mensaje"
         formControlName="mensaje" placeholder=" mensaje"
         cols="30" rows="10" ></textarea>
-      </div>  -->
+      </div>
       <div class="component-form">
-        <button class="btnSend" [disabled]="!objContactoForm.valid">
-          <span *ngIf="objContactoForm.valid">{{ txtBtnChatD }}</span>
-          <span *ngIf="!objContactoForm.valid">{{ txtBtnChatB }}</span>
+        <button [disabled]="!objContactoForm.valid"
+                [ngClass]="{'disabled-btn': !objContactoForm.valid,
+                            'enabled-btn': objContactoForm.valid}">
+          <span [ngClass]="{'color-enabled': objContactoForm.valid}"
+                *ngIf="objContactoForm.valid">{{ txtBtnChatD }}</span>
+          <span [ngClass]="{'color-disabled': !objContactoForm.valid}"
+                *ngIf="!objContactoForm.valid">{{ txtBtnChatB }}</span>
         </button>
       </div>
     </form>
@@ -69,9 +73,13 @@
                         'bajaLbl': focusInput3 === false}">Mensaje</label>
         </div>
         <div class="component-form">
-          <button class="btnSend" [disabled]="!objChatForm.valid">
-          <span *ngIf="objChatForm.valid">{{ txtBtnChatD }}</span>
-          <span *ngIf="!objChatForm.valid">{{ txtBtnChatB }}</span>
+          <button [disabled]="!objChatForm.valid"
+            [ngClass]="{'disabled-btn': !objChatForm.valid,
+                        'enabled-btn': objChatForm.valid}">
+          <span [ngClass]="{'color-enabled': objChatForm.valid}"
+                *ngIf="objChatForm.valid">{{ txtBtnChatD }}</span>
+          <span [ngClass]="{'color-disabled': !objChatForm.valid}"
+                *ngIf="!objChatForm.valid">{{ txtBtnChatB }}</span>
           </button>
         </div>
       </form>

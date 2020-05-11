@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { LoginRoutingModule } from './login-routing.module';
-import { LoginComponent } from './login/login.component';
+import { LoginRoutingModule } from '@login/login-routing.module';
+import { LoginComponent } from '@login/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { LoginServicioService } from './login-servicio.service';
+import { LoginServicioService } from '@login/login-servicio.service';
 
 @NgModule({
   declarations: [LoginComponent],

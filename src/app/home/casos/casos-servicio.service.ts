@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 // interfaces
-import { UsuarioI } from 'src/app/interfaces/usuario-i';
-import { CasoI } from 'src/app/interfaces/caso-i';
+import { UsuarioI } from '@interfaces/usuario-i';
+import { CasoI } from '@interfaces/caso-i';
 
 // rxjs
 import { Observable } from 'rxjs';
 
 // socket io-client
 import * as io from 'socket.io-client';
-import { URL_API_GET_USER } from 'src/environments/environment';
+import { URL_API_GET_USER } from '@environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class CasosServicioService {

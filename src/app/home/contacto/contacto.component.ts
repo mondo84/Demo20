@@ -2,7 +2,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ContactService } from './contact.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { PATTERN_EMAIL } from 'src/environments/environment'; // Variables de entorno.
+import { PATTERN_EMAIL } from '@environments/environment'; // Variables de entorno.
 
 @Component({
   selector: 'app-contacto',
@@ -63,7 +63,7 @@ export class ContactoComponent implements OnInit, OnDestroy {
                 ]
               }],
       mensaje: ['', {
-                  validatos: [
+                  validators: [
                     Validators.required,
                     Validators.minLength(2)
                   ]
