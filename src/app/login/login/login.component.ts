@@ -16,6 +16,8 @@ import { LS_TOKEN, PATTERN_EMAIL } from '@environments/environment';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  txtBtnLoginD = 'Inicio';
+  txtBtnLoginB = 'Bloqueado';
 
   constructor(private objFb: FormBuilder,
               private objLgService: LoginServicioService,
@@ -29,7 +31,7 @@ export class LoginComponent implements OnInit {
   // Crea el formulario.
   formLogin(): void {
     this.loginForm = this.objFb.group({
-      email: ['', {
+      email: [{ value: '', disabled: false }, {
                     validators: [
                       Validators.required,
                       Validators.minLength(10),
@@ -38,7 +40,7 @@ export class LoginComponent implements OnInit {
                     ]
                   }
               ],
-      password: ['', {
+      password: [{ value: '', disabled: false }, {
                     validators: [
                       Validators.required,
                       Validators.minLength(5),

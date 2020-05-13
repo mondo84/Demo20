@@ -7,6 +7,7 @@ import { EstadisticasComponent } from './estadisticas/estadisticas.component';
 import { CasosComponent } from './casos/casos.component';
 import { ContactoComponent } from './contacto/contacto.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     EstadisticasComponent,
     CasosComponent,
-    ContactoComponent],
+    ContactoComponent,
+    FooterComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,

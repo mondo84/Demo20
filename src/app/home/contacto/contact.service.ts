@@ -1,8 +1,9 @@
+import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-
 import { HttpClient } from '@angular/common/http';
 
 import * as io from 'socket.io-client';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ContactService {
@@ -24,6 +25,33 @@ export class ContactService {
 
   enviaMensaje(argMsj: any) {
     this.socket.emit('msj', JSON.stringify(argMsj));
+  }
+
+  getEventoSocket() {
+    /*
+    this.socket.on('msj', (x: any) => {
+      console.log(x);
+      // this.datosChat = x;
+    });
+    */
+
+    return new Observable( (observer) => {
+      this.socket.on('msj', (data: any) => {
+
+        if ( data.length < 0) {
+          observer.error('Error de datos. No hay');
+        } else {
+          observer.next(data);
+          // observer.next('datos enviados');
+          // observer.complete(); // marca el observable y
+          // no permite escuchar mas cambios en la data.
+        }
+        // observer.complete();
+      }
+        // Al escuchar el evento de desconexion de socket
+        // se marca como completado el observable.
+      );
+    });
   }
 
   enviaMensaje2(argMsj: any) {

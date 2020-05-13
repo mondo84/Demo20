@@ -9,23 +9,32 @@
     </div>
 
     <form [formGroup]="loginForm" (ngSubmit)="validar()" >
-    <div >
-      <input type="email" name="email" id="email" formControlName="email" placeholder="Email" required >
+    <div class="form-group" >
+      <input type="email" name="email" id="email"
+              formControlName="email" placeholder="Email" required >
       <div *ngIf="getError('email')"
             [ngClass]="{ 'invalid-feedback': getError('email') }">
             <span>{{ getError('email')}}</span>
       </div>
     </div>
 
-    <div >
-      <input type="password" name="password" id="pass" formControlName="password" placeholder="Password" required>
+    <div class="form-group">
+      <input type="password" name="password" id="pass"
+              formControlName="password" placeholder="Password" required>
       <div *ngIf="getError('password')"
             [ngClass]="{ 'invalid-feedback': getError('password') }">
             <span>{{ getError('password')}}</span>
       </div>
     </div>
     <div >
-      <button class="" type="submit" [disabled]='!loginForm.valid'>Iniciar</button>
+      <button class="" type="submit" [disabled]='!loginForm.valid'
+                [ngClass]="{'disabled-btn': !loginForm.valid,
+                            'enabled-btn': loginForm.valid}">
+        <span [ngClass]="{'color-enabled': loginForm.valid}"
+              *ngIf="loginForm.valid">{{ txtBtnLoginD }}</span>
+        <span [ngClass]="{'color-disabled': !loginForm.valid}"
+              *ngIf="!loginForm.valid">{{ txtBtnLoginB }}</span>
+      </button>
     </div>
     </form>
   </div>

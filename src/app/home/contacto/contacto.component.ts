@@ -30,8 +30,8 @@ export class ContactoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.argSerContact.conexion();
-    this.obSocket = this.argSerContact.getSocket(); // Se obtiene el socket.
+    this.argSerContact.conexion();  // msj conexion con socket.
+    // this.obSocket = this.argSerContact.getSocket(); // Se obtiene el socket.
     this.cargaDatos();
   }
 
@@ -79,18 +79,26 @@ export class ContactoComponent implements OnInit, OnDestroy {
     });
   }
 
+  // Metodo que recibe el evento del socket.
   cargaDatos() {
-    // Recibe el evento del socket desde el server.
-    this.obSocket.on('msj', (x: any) => {
-      console.log(x);
-      this.datosChat = x;
+    // Captura evento 'msj' enviado desde el server.
+    const observable$ = this.argSerContact.getEventoSocket()
+    .subscribe({
+      next: (data) => {
+        console.log(data);
+        this.datosChat = data;
+      },
+      error: (err) => { console.error(err); },
+      complete: () => console.log('completado')
     });
+
+    // observable$.unsubscribe();
   }
 
   onSubmit() {
     // console.log(this.objChatForm.value);
     this.argSerContact.enviaMensaje(this.objChatForm.value);
-    this.objChatForm.get('mensaje').patchValue('');
+    this.objChatForm.get('mensaje').patchValue(''); // Limpia campo.
   }
 
   onSubmit2() {

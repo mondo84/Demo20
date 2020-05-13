@@ -1,5 +1,5 @@
 *{
-  color: rgb(59, 160, 255);
+  color: #0e77f0;
   box-sizing: border-box;
   list-style: none;
   margin: 0;
@@ -102,42 +102,6 @@ textarea {
   background: rgba(218, 218, 218, 0.205);
   color: #515152;
   border: 1px rgba(173, 173, 173, 0.486) solid;
-}
-
-.redes-sociales {
-  width: 100%;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px rgb(90, 175, 255) solid;
-  border-radius: 2px;
-  background-color: rgb(162, 210, 255);
-}
-
-.icono-redes {
-  font-size: 12px;
-  padding: 10px 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.numeros-contacto {
-  width: 100%;
-  border: 1px rgb(90, 175, 255) solid;
-  border-radius: 2px;
-  background-color: rgb(162, 210, 255);
-}
-
-.icono-numeros {
-  font-size: 12px;
-  padding: 10px 4px;
-}
-
-.numeros-contacto .icono-numeros:first-child,
-.numeros-contacto .icono-numeros:nth-child(2) {
-  border-bottom: 1px rgb(90, 175, 255) solid;
 }
 
 .container-table {
